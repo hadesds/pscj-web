@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Paróquia Sagrado Coração de Jesus — Bequimão",
+  title: "PSCJ — Paróquia Sagrado Coração de Jesus do Bequimão",
   description:
     "Uma comunidade viva, acolhedora e comprometida com a fé desde 1979.",
 };
@@ -14,7 +15,7 @@ const avisos = [
     tag: "Destaque",
     title: "XVI Retiro Espiritual Mariano",
     desc: '"Maria toda de Deus e tão humana" — Inscrições abertas para este momento de renovação interior.',
-    href: "/?p=13959",
+    href: "/avisos",
     linkLabel: "Saiba mais",
   },
   {
@@ -28,7 +29,7 @@ const avisos = [
     tag: "Centro SCJ",
     title: "Centro de Acolhimento SCJ",
     desc: "Aberto para grupos, movimentos e pastorais. Entre em contato para agendamentos.",
-    href: "/?page_id=2119",
+    href: "/centro-scj",
     linkLabel: "Agendar visita",
   },
 ];
@@ -78,75 +79,120 @@ const passos = [
   },
 ];
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+// ─── Navbar com Dropdown ──────────────────────────────────────────────────────
 
 function Navbar() {
-  const links = [
-    { label: "Início", href: "/" },
-    { label: "Paróquia", href: "/?page_id=1486" },
-    { label: "Avisos", href: "/?page_id=12855" },
-    { label: "Notícias", href: "/?page_id=1573" },
-    { label: "Galeria", href: "/?page_id=12505" },
-  ];
   return (
-    <nav className="navbar">
-      <a href="/" className="navbar-brand">
-        <Image src="/Logo-PSCJ-vermelho-sem-fundo.png" alt="" width="35" height="30" className="navbar-brand"/>
-        <span className="brand-text">
-          <strong>PSCJ</strong>
-          <span>Sagrado Coração de Jesus</span>
-        </span>
-      </a>
+    <>
+      <style>{navbarCss}</style>
+      <nav className="navbar">
+        {/* Logo */}
+        <Link href="/" className="navbar-brand">
+          <Image
+            src="/Logo-PSCJ-vermelho-sem-fundo.png"
+            alt="Logo PSCJ"
+            width={35}
+            height={42}
+            priority
+          />
+          <span className="brand-text">
+            <strong>PSCJ</strong>
+            <span>Sagrado Coração de Jesus</span>
+          </span>
+        </Link>
 
-      <ul className="navbar-links">
-        {links.map((l) => (
-          <li key={l.href}>
-            <a href={l.href}>{l.label}</a>
+        {/* Links */}
+        <ul className="navbar-links">
+          <li>
+            <Link href="/">Início</Link>
           </li>
-        ))}
-      </ul>
 
-      <div className="navbar-actions">
-        <a
-          href="http://www.instagram.com/pscjslz"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram"
-          className="nav-icon-link"
-        >
-          <i className="ti ti-brand-instagram" aria-hidden="true" />
-        </a>
-        <a
-          href="https://wa.me/5598988440733"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="WhatsApp"
-          className="nav-icon-link"
-        >
-          <i className="ti ti-brand-whatsapp" aria-hidden="true" />
-        </a>
-        <a href="/?page_id=4190" className="btn-nav-cta">
-          Eventos
-        </a>
-      </div>
-    </nav>
+          {/* Paróquia com dropdown */}
+          <li className="nav-dropdown-wrap">
+            <button className="nav-dropdown-trigger" aria-haspopup="true">
+              Paróquia
+              <i className="ti ti-chevron-down nav-chevron" aria-hidden="true" />
+            </button>
+            <div className="nav-dropdown" role="menu">
+              <Link href="/paroquia/historia" role="menuitem">
+                <span className="dropdown-icon">
+                  <i className="ti ti-book" aria-hidden="true" />
+                </span>
+                <span>
+                  <strong>História</strong>
+                  <small>A trajetória da PSCJ desde 1979</small>
+                </span>
+              </Link>
+              <Link href="/paroquia/grupos" role="menuitem">
+                <span className="dropdown-icon">
+                  <i className="ti ti-users-group" aria-hidden="true" />
+                </span>
+                <span>
+                  <strong>Grupos, Movimentos e Pastorais</strong>
+                  <small>Encontre sua comunidade dentro da paróquia</small>
+                </span>
+              </Link>
+            </div>
+          </li>
+
+          <li>
+            <Link href="/centro-scj">Centro de Acolhimento SCJ</Link>
+          </li>
+          <li>
+            <Link href="/avisos">Avisos</Link>
+          </li>
+          <li>
+            <Link href="/noticias">Notícias</Link>
+          </li>
+          <li>
+            <Link href="/galeria">Galeria</Link>
+          </li>
+        </ul>
+
+        {/* Ações */}
+        <div className="navbar-actions">
+          <a
+            href="http://www.instagram.com/pscjslz"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="nav-icon-link"
+          >
+            <i className="ti ti-brand-instagram" aria-hidden="true" />
+          </a>
+          <a
+            href="https://wa.me/5598988440733"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp"
+            className="nav-icon-link"
+          >
+            <i className="ti ti-brand-whatsapp" aria-hidden="true" />
+          </a>
+          <Link href="/eventos" className="btn-nav-cta">
+            Eventos
+          </Link>
+        </div>
+      </nav>
+    </>
   );
 }
+
+// ─── Sub-components ───────────────────────────────────────────────────────────
 
 function Hero() {
   return (
     <section className="hero">
-      <Image src="/hero-bg.png" alt="" fill priority className="hero-img" />
+      <Image src="/hero-bg2.png" alt="" fill priority className="hero-img" />
       <div className="hero-overlay" aria-hidden="true" />
-
       <div className="hero-content">
         <span className="hero-eyebrow">
           <i className="ti ti-map-pin" aria-hidden="true" /> Bequimão, São Luís — MA
         </span>
         <h1 className="hero-title">
-          SAGRADO
+          SAGRADO CORAÇÃO
           <br />
-          <span className="hero-title-light">CORAÇÃO</span>
+          <span className="hero-title-light">DE JESUS</span>
         </h1>
         <p className="hero-sub">
           Evangelizando com amor e servindo com fé desde 1979.
@@ -157,12 +203,11 @@ function Hero() {
           <a href="#horarios" className="btn-hero-primary">
             <i className="ti ti-calendar" aria-hidden="true" /> Horário de Missas
           </a>
-          <a href="/?page_id=1486" className="btn-hero-outline">
+          <Link href="/paroquia" className="btn-hero-outline">
             <i className="ti ti-heart" aria-hidden="true" /> Conheça a Paróquia
-          </a>
+          </Link>
         </div>
       </div>
-
       <div className="hero-stats-bar">
         {[
           { num: "1979", label: "Fundação" },
@@ -196,20 +241,10 @@ function Intro() {
               projetos que transformam vidas.
             </p>
             <div className="intro-social">
-              <a
-                href="http://www.instagram.com/pscjslz"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-              >
+              <a href="http://www.instagram.com/pscjslz" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <i className="ti ti-brand-instagram" aria-hidden="true" />
               </a>
-              <a
-                href="https://wa.me/5598988440733"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-              >
+              <a href="https://wa.me/5598988440733" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                 <i className="ti ti-brand-whatsapp" aria-hidden="true" />
               </a>
             </div>
@@ -226,24 +261,11 @@ function Intro() {
               ))}
             </div>
           </div>
-
           <div className="intro-right">
             {[
-              {
-                icon: "ti-map-pin",
-                title: "Presença Comunitária",
-                desc: "Atuamos em ruas, residências e espaços comunitários de Bequimão levando fé e acolhimento.",
-              },
-              {
-                icon: "ti-calendar-event",
-                title: "Agenda Completa",
-                desc: "Missas, retiros, celebrações missionárias e eventos durante todo o ano para sua família.",
-              },
-              {
-                icon: "ti-headphones",
-                title: "Sempre Acolhendo",
-                desc: "Nossa secretaria e grupos pastorais estão prontos para receber e apoiar toda a comunidade.",
-              },
+              { icon: "ti-map-pin", title: "Presença Comunitária", desc: "Atuamos em ruas, residências e espaços comunitários de Bequimão levando fé e acolhimento." },
+              { icon: "ti-calendar-event", title: "Agenda Completa", desc: "Missas, retiros, celebrações missionárias e eventos durante todo o ano para sua família." },
+              { icon: "ti-headphones", title: "Sempre Acolhendo", desc: "Nossa secretaria e grupos pastorais estão prontos para receber e apoiar toda a comunidade." },
             ].map((card) => (
               <div key={card.title} className="intro-card">
                 <div className="intro-card-icon">
@@ -271,21 +293,19 @@ function Avisos() {
             <span className="section-eyebrow">Comunicados</span>
             <h2 className="section-title">Avisos da Paróquia</h2>
           </div>
-          <a href="/?page_id=12855" className="btn-ghost">
+          <Link href="/avisos" className="btn-ghost">
             Ver todos <i className="ti ti-arrow-right" aria-hidden="true" />
-          </a>
+          </Link>
         </div>
-
         <div className="avisos-grid">
           {avisos.map((a) => (
             <article key={a.title} className="aviso-card">
               <span className="aviso-tag">{a.tag}</span>
               <h3>{a.title}</h3>
               <p>{a.desc}</p>
-              <a href={a.href} className="aviso-link">
-                {a.linkLabel}{" "}
-                <i className="ti ti-arrow-right" aria-hidden="true" />
-              </a>
+              <Link href={a.href} className="aviso-link">
+                {a.linkLabel} <i className="ti ti-arrow-right" aria-hidden="true" />
+              </Link>
             </article>
           ))}
         </div>
@@ -302,27 +322,16 @@ function Horarios() {
           <div className="horarios-head">
             <span className="section-eyebrow light">Liturgia</span>
             <h2 className="section-title light">
-              Horários de
-              <br />
-              Missas e Secretaria
+              Horários de<br />Missas e Secretaria
             </h2>
-            <a
-              href="https://wa.me/5598988440733"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-whatsapp"
-            >
+            <a href="https://wa.me/5598988440733" target="_blank" rel="noopener noreferrer" className="btn-whatsapp">
               <i className="ti ti-brand-whatsapp" aria-hidden="true" />
               WhatsApp da Paróquia
             </a>
           </div>
-
           <div className="horarios-cards">
             <div className="horario-card">
-              <h3>
-                <i className="ti ti-building-church" aria-hidden="true" />{" "}
-                Missas
-              </h3>
+              <h3><i className="ti ti-building-church" aria-hidden="true" /> Missas</h3>
               <ul>
                 {missas.map((m) => (
                   <li key={m.dia}>
@@ -333,9 +342,7 @@ function Horarios() {
               </ul>
             </div>
             <div className="horario-card">
-              <h3>
-                <i className="ti ti-clock" aria-hidden="true" /> Secretaria
-              </h3>
+              <h3><i className="ti ti-clock" aria-hidden="true" /> Secretaria</h3>
               <ul>
                 {secretaria.map((s) => (
                   <li key={s.dia}>
@@ -357,7 +364,6 @@ function PadreAtual() {
     <section className="padre-section" id="padre">
       <div className="container">
         <div className="padre-grid">
-          {/* Foto */}
           <div className="padre-photo-col">
             <div className="padre-photo-frame">
               <div className="padre-accent-block" aria-hidden="true" />
@@ -367,10 +373,7 @@ function PadreAtual() {
                   alt="Padre pároco da PSCJ"
                   fill
                   sizes="(max-width: 768px) 90vw, 420px"
-                  style={{
-                    objectFit: "contain",
-                    objectPosition: "bottom center",
-                  }}
+                  style={{ objectFit: "contain", objectPosition: "bottom center" }}
                 />
               </div>
               <div className="padre-badge" aria-hidden="true">
@@ -378,8 +381,6 @@ function PadreAtual() {
               </div>
             </div>
           </div>
-
-          {/* Info */}
           <div className="padre-info-col">
             <span className="section-eyebrow">Liderança Pastoral</span>
             <h2 className="padre-name">Pe. Flávio Colins</h2>
@@ -388,7 +389,9 @@ function PadreAtual() {
               Pároco da PSCJ — Bequimão
             </p>
             <p className="padre-bio">
-              Reconhecido por sua dedicação à formação dos leigos, pela gestão pastoral e pleo cuidado com as comunidades, sempre atuou de forma humilde, fraterna e comprometida com o crescimento espiritual e humano dos fiéis.
+              Reconhecido por sua dedicação à formação dos leigos, pela gestão pastoral
+              e pelo cuidado com as comunidades, sempre atuou de forma humilde, fraterna
+              e comprometida com o crescimento espiritual e humano dos fiéis.
             </p>
             <ul className="padre-tags">
               {padreFormacoes.map((f) => (
@@ -399,23 +402,11 @@ function PadreAtual() {
               ))}
             </ul>
             <div className="padre-actions">
-              <a
-                href="https://wa.me/5598988440733"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-red"
-              >
-                <i className="ti ti-brand-whatsapp" aria-hidden="true" />{" "}
-                Contato
+              <a href="https://wa.me/5598988440733" target="_blank" rel="noopener noreferrer" className="btn-red">
+                <i className="ti ti-brand-whatsapp" aria-hidden="true" /> Contato
               </a>
-              <a
-                href="http://www.instagram.com/pscjslz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-outline-red"
-              >
-                <i className="ti ti-brand-instagram" aria-hidden="true" />{" "}
-                Instagram
+              <a href="http://www.instagram.com/pscjslz" target="_blank" rel="noopener noreferrer" className="btn-outline-red">
+                <i className="ti ti-brand-instagram" aria-hidden="true" /> Instagram
               </a>
             </div>
           </div>
@@ -434,34 +425,28 @@ function Historia() {
             <span className="section-eyebrow">Nossa história</span>
             <h2 className="section-title">A trajetória da PSCJ</h2>
           </div>
-          <a href="/?page_id=1532" className="btn-ghost">
-            História completa{" "}
-            <i className="ti ti-arrow-right" aria-hidden="true" />
-          </a>
+          <Link href="/paroquia/historia" className="btn-ghost">
+            História completa <i className="ti ti-arrow-right" aria-hidden="true" />
+          </Link>
         </div>
-
         <div className="historia-grid">
           <div className="historia-text">
             <p>
-              A paróquia <strong>nasceu em 1979</strong>, junto com o conjunto
-              Bequimão. Desde a primeira missa celebrada em um terreno simples,
-              a comunidade cresceu, organizou grupos pastorais e construiu sua
-              primeira capela.
+              A paróquia <strong>nasceu em 1979</strong>, junto com o conjunto Bequimão.
+              Desde a primeira missa celebrada em um terreno simples, a comunidade cresceu,
+              organizou grupos pastorais e construiu sua primeira capela.
             </p>
             <p>
               Em <strong>1997</strong> foi elevada oficialmente a paróquia, e em{" "}
-              <strong>2008</strong> inaugurou a atual Igreja Matriz, símbolo
-              vivo da fé e da dedicação da comunidade.
+              <strong>2008</strong> inaugurou a atual Igreja Matriz, símbolo vivo
+              da fé e da dedicação da comunidade.
             </p>
           </div>
-
           <ol className="timeline">
             {timeline.map((t, i) => (
               <li key={t.ano} className="timeline-item">
                 <div className="timeline-dot" aria-hidden="true">
-                  {i + 1 < timeline.length && (
-                    <div className="timeline-line" />
-                  )}
+                  {i + 1 < timeline.length && <div className="timeline-line" />}
                 </div>
                 <div>
                   <span className="timeline-year">{t.ano}</span>
@@ -481,9 +466,7 @@ function ComoParticipar() {
     <section className="passos-section">
       <div className="container">
         <span className="section-eyebrow center">Faça parte</span>
-        <h2 className="section-title center">
-          Participar é simples. Em 3 passos.
-        </h2>
+        <h2 className="section-title center">Participar é simples. Em 3 passos.</h2>
         <div className="passos-grid">
           {passos.map((p) => (
             <div key={p.num} className="passo-card">
@@ -508,62 +491,42 @@ function Footer() {
               <i className="ti ti-cross" aria-hidden="true" />
             </span>
             <h3>Paróquia Sagrado Coração de Jesus</h3>
-            <p>
-              Evangelizando com amor e servindo com fé. Uma comunidade viva no
-              coração de Bequimão desde 1979.
-            </p>
+            <p>Evangelizando com amor e servindo com fé. Uma comunidade viva no coração de Bequimão desde 1979.</p>
             <div className="footer-social">
-              <a
-                href="http://www.instagram.com/pscjslz"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-              >
+              <a href="http://www.instagram.com/pscjslz" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <i className="ti ti-brand-instagram" aria-hidden="true" />
               </a>
-              <a
-                href="https://wa.me/5598988440733"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp"
-              >
+              <a href="https://wa.me/5598988440733" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                 <i className="ti ti-brand-whatsapp" aria-hidden="true" />
               </a>
             </div>
           </div>
-
           <div className="footer-col">
             <h4>Navegação</h4>
-            <a href="/">Início</a>
-            <a href="/?page_id=1486">Paróquia</a>
-            <a href="/?page_id=13302">Grupos e Pastorais</a>
-            <a href="/?page_id=12855">Avisos</a>
-            <a href="/?page_id=1573">Notícias</a>
-            <a href="/?page_id=12505">Galeria</a>
-            <a href="/?page_id=4190">Eventos e Ações</a>
+            <Link href="/">Início</Link>
+            <Link href="/paroquia">Paróquia</Link>
+            <Link href="/paroquia/historia">História</Link>
+            <Link href="/paroquia/grupos">Grupos e Pastorais</Link>
+            <Link href="/avisos">Avisos</Link>
+            <Link href="/noticias">Notícias</Link>
+            <Link href="/galeria">Galeria</Link>
+            <Link href="/eventos">Eventos e Ações</Link>
           </div>
-
           <div className="footer-col">
             <h4>Contato</h4>
             <a href="https://wa.me/5598988440733">
-              <i className="ti ti-brand-whatsapp" aria-hidden="true" /> (98)
-              98844-0733
+              <i className="ti ti-brand-whatsapp" aria-hidden="true" /> (98) 98844-0733
             </a>
             <a href="#">
-              <i className="ti ti-map-pin" aria-hidden="true" /> Bequimão, São
-              Luís — MA
+              <i className="ti ti-map-pin" aria-hidden="true" /> Bequimão, São Luís — MA
             </a>
             <a href="#">
-              <i className="ti ti-clock" aria-hidden="true" /> Secretaria:
-              Ter–Sex, 8h–17h30
+              <i className="ti ti-clock" aria-hidden="true" /> Secretaria: Ter–Sex, 8h–17h30
             </a>
           </div>
         </div>
-
         <div className="footer-bottom">
-          <span>
-            © 1997–2026 Paróquia Sagrado Coração de Jesus — Bequimão
-          </span>
+          <span>© 1997–2026 Paróquia Sagrado Coração de Jesus — Bequimão</span>
           <span>Desenvolvido pela PASCOM</span>
         </div>
       </div>
@@ -576,16 +539,6 @@ function Footer() {
 export default function Home() {
   return (
     <>
-      {/*
-       * Adicione no app/layout.tsx dentro de <head>:
-       *
-       * <link rel="preconnect" href="https://fonts.googleapis.com" />
-       * <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-       * <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-       * <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet" />
-       *
-       * Em produção, mova o conteúdo de `css` abaixo para globals.css
-       */}
       <style>{css}</style>
       <Navbar />
       <main>
@@ -602,7 +555,101 @@ export default function Home() {
   );
 }
 
-// ─── Styles ───────────────────────────────────────────────────────────────────
+// ─── Navbar Dropdown CSS ──────────────────────────────────────────────────────
+
+const navbarCss = `
+.nav-dropdown-wrap { position: relative; }
+
+.nav-dropdown-trigger {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 13px; font-weight: 500; color: var(--text, #111);
+  background: none; border: none; cursor: pointer;
+  padding: 6px 14px; border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.nav-dropdown-trigger:hover,
+.nav-dropdown-wrap:hover .nav-dropdown-trigger {
+  background: #f5e6e8; color: #C8102E;
+}
+
+.nav-chevron {
+  font-size: 13px;
+  transition: transform 0.2s;
+}
+.nav-dropdown-wrap:hover .nav-chevron {
+  transform: rotate(180deg);
+}
+
+/* Dropdown panel */
+.nav-dropdown {
+  position: absolute; top: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 8px;
+  opacity: 0; pointer-events: none;
+  transform: translateX(-50%) translateY(-6px);
+  transition: opacity 0.18s, transform 0.18s;
+  z-index: 300;
+}
+
+/* Arrow tip */
+.nav-dropdown::before {
+  content: '';
+  position: absolute; top: -6px; left: 50%;
+  transform: translateX(-50%);
+  width: 12px; height: 6px;
+  background: #fff;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 -1px 0 #e2e8f0);
+}
+
+.nav-dropdown-wrap:hover .nav-dropdown {
+  opacity: 1; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown a {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px; border-radius: 8px;
+  text-decoration: none; color: #111;
+  transition: background 0.15s;
+  margin-bottom: 2px;
+}
+.nav-dropdown a:last-child { margin-bottom: 0; }
+.nav-dropdown a:hover { background: #faf9f7; }
+
+.dropdown-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: #f5e6e8; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: #C8102E; font-size: 18px;
+  margin-top: 1px;
+}
+.nav-dropdown a:hover .dropdown-icon { background: #C8102E; color: #fff; }
+
+.nav-dropdown a span:not(.dropdown-icon) {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.nav-dropdown a strong {
+  font-size: 13px; font-weight: 600; color: #111; line-height: 1.3;
+}
+.nav-dropdown a small {
+  font-size: 11px; color: #64748b; line-height: 1.4;
+}
+
+/* Mobile: dropdown becomes static block */
+@media (max-width: 768px) {
+  .nav-dropdown-wrap { display: none; }
+}
+`;
+
+// ─── Page CSS ─────────────────────────────────────────────────────────────────
 
 const css = `
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap');
@@ -641,24 +688,20 @@ ul, ol { list-style: none; }
   border-bottom: 1px solid var(--border);
   height: 68px;
   display: flex; align-items: center;
-  padding: 0 2.5rem; gap: 2.5rem;
+  padding: 0 2.5rem; gap: 2rem;
   box-shadow: 0 1px 16px rgba(0,0,0,0.07);
 }
 .navbar-brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.brand-cross {
-  width: 36px; height: 36px;
-  background: var(--red); color: var(--white); border-radius: 8px;
-  display: flex; align-items: center; justify-content: center; font-size: 18px;
-}
 .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand-text strong { font-size: 15px; font-weight: 700; color: var(--red); letter-spacing: 0.04em; }
 .brand-text span { font-size: 10px; color: var(--muted); letter-spacing: 0.01em; }
-.navbar-links { display: flex; gap: 0.2rem; flex: 1; }
-.navbar-links a {
+.navbar-links { display: flex; gap: 0.1rem; flex: 1; align-items: center; }
+.navbar-links > li > a {
   font-size: 13px; font-weight: 500; color: var(--text);
   padding: 6px 14px; border-radius: 6px; transition: background 0.15s, color 0.15s;
+  display: block;
 }
-.navbar-links a:hover { background: var(--red-l); color: var(--red); }
+.navbar-links > li > a:hover { background: var(--red-l); color: var(--red); }
 .navbar-actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .nav-icon-link { font-size: 21px; color: var(--muted); transition: color 0.15s; }
 .nav-icon-link:hover { color: var(--red); }
@@ -671,12 +714,6 @@ ul, ol { list-style: none; }
 
 /* HERO */
 .hero { position: relative; min-height: 600px; display: flex; flex-direction: column; overflow: hidden; }
-.hero-fallback-bg {
-  position: absolute; inset: 0;
-  background:
-    repeating-linear-gradient(135deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px),
-    linear-gradient(160deg, var(--red-d) 0%, var(--red) 55%, #d63050 100%);
-}
 .hero-img { object-fit: cover; }
 .hero-overlay {
   position: absolute; inset: 0;
@@ -859,7 +896,6 @@ ul, ol { list-style: none; }
 }
 .padre-role { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--red); letter-spacing: 0.04em; }
 .padre-bio { font-size: 14px; color: var(--muted); line-height: 1.8; }
-.padre-bio em { font-style: italic; color: #aaa; font-size: 13px; }
 .padre-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .padre-tags li {
   display: inline-flex; align-items: center; gap: 6px;
