@@ -1,65 +1,983 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Paróquia Sagrado Coração de Jesus — Bequimão",
+  description:
+    "Uma comunidade viva, acolhedora e comprometida com a fé desde 1979.",
+};
+
+// ─── Data ────────────────────────────────────────────────────────────────────
+
+const avisos = [
+  {
+    tag: "Destaque",
+    title: "XVI Retiro Espiritual Mariano",
+    desc: '"Maria toda de Deus e tão humana" — Inscrições abertas para este momento de renovação interior.',
+    href: "/?p=13959",
+    linkLabel: "Saiba mais",
+  },
+  {
+    tag: "Comunidade",
+    title: "Celebrações Missionárias — CEM",
+    desc: "Toda 4ª quinta-feira do mês nas ruas e residências da comunidade, às 19h30.",
+    href: "#",
+    linkLabel: "Ver calendário",
+  },
+  {
+    tag: "Centro SCJ",
+    title: "Centro de Acolhimento SCJ",
+    desc: "Aberto para grupos, movimentos e pastorais. Entre em contato para agendamentos.",
+    href: "/?page_id=2119",
+    linkLabel: "Agendar visita",
+  },
+];
+
+const missas = [
+  { dia: "Sexta-feira", horario: "18h" },
+  { dia: "Sábado", horario: "19h" },
+  { dia: "Domingo", horario: "7h · 9h · 17h · 19h" },
+  { dia: "4ª Quinta/mês (CEM)", horario: "19h30" },
+];
+
+const secretaria = [
+  { dia: "Ter. a Sex.", horario: "8h–11h30 · 14h–17h30" },
+  { dia: "Sábado", horario: "8h–11h30 · 15h30–20h" },
+  { dia: "Domingo", horario: "6h30–10h30 · 16h30–20h30" },
+];
+
+const timeline = [
+  { ano: "1979", desc: "Primeira missa no conjunto Bequimão." },
+  { ano: "1985", desc: "Primeiros grupos pastorais e primeira capela." },
+  { ano: "1997", desc: "Elevação oficial a paróquia." },
+  { ano: "2008", desc: "Inauguração da atual Igreja Matriz." },
+  { ano: "Hoje", desc: "Comunidade viva, com pastorais e Centro SCJ." },
+];
+
+const padreFormacoes = [
+  { icon: "ti-school", label: "Teologia — [Instituição]" },
+  { icon: "ti-award", label: "[Pós-graduação ou especialidade]" },
+  { icon: "ti-calendar", label: "Pároco desde [ano]" },
+];
+
+const passos = [
+  {
+    num: "01",
+    title: "Participe da Missa",
+    desc: "Venha celebrar nos horários disponíveis durante a semana e fins de semana.",
+  },
+  {
+    num: "02",
+    title: "Conheça os Grupos",
+    desc: "Encontre seu espaço em um de nossos grupos pastorais, movimentos e pastorais.",
+  },
+  {
+    num: "03",
+    title: "Faça Parte",
+    desc: "Integre-se à comunidade e contribua com a evangelização e projetos sociais.",
+  },
+];
+
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+function Navbar() {
+  const links = [
+    { label: "Início", href: "/" },
+    { label: "Paróquia", href: "/?page_id=1486" },
+    { label: "Avisos", href: "/?page_id=12855" },
+    { label: "Notícias", href: "/?page_id=1573" },
+    { label: "Galeria", href: "/?page_id=12505" },
+  ];
+  return (
+    <nav className="navbar">
+      <a href="/" className="navbar-brand">
+        <span className="brand-cross">
+          <i className="ti ti-cross" aria-hidden="true" />
+        </span>
+        <span className="brand-text">
+          <strong>PSCJ</strong>
+          <span>Sagrado Coração de Jesus</span>
+        </span>
+      </a>
+
+      <ul className="navbar-links">
+        {links.map((l) => (
+          <li key={l.href}>
+            <a href={l.href}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+
+      <div className="navbar-actions">
+        <a
+          href="http://www.instagram.com/pscjslz"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          className="nav-icon-link"
+        >
+          <i className="ti ti-brand-instagram" aria-hidden="true" />
+        </a>
+        <a
+          href="https://wa.me/5598988440733"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp"
+          className="nav-icon-link"
+        >
+          <i className="ti ti-brand-whatsapp" aria-hidden="true" />
+        </a>
+        <a href="/?page_id=4190" className="btn-nav-cta">
+          Eventos
+        </a>
+      </div>
+    </nav>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="hero">
+      {/*
+       * Para usar foto real da igreja:
+       * 1. Coloque hero-bg.jpg em /public/
+       * 2. Descomente o <Image> abaixo e remova .hero-fallback-bg
+       */}
+      {/* <Image src="/hero-bg.jpg" alt="" fill priority className="hero-img" /> */}
+      <div className="hero-fallback-bg" aria-hidden="true" />
+      <div className="hero-overlay" aria-hidden="true" />
+
+      <div className="hero-content">
+        <span className="hero-eyebrow">
+          <i className="ti ti-map-pin" aria-hidden="true" /> Bequimão, São Luís — MA
+        </span>
+        <h1 className="hero-title">
+          SAGRADO
+          <br />
+          <span className="hero-title-light">CORAÇÃO</span>
+        </h1>
+        <p className="hero-sub">
+          Evangelizando com amor e servindo com fé desde 1979.
+          <br />
+          Uma comunidade viva no coração de Bequimão.
+        </p>
+        <div className="hero-ctas">
+          <a href="#horarios" className="btn-hero-primary">
+            <i className="ti ti-calendar" aria-hidden="true" /> Horário de Missas
+          </a>
+          <a href="/?page_id=1486" className="btn-hero-outline">
+            <i className="ti ti-heart" aria-hidden="true" /> Conheça a Paróquia
+          </a>
+        </div>
+      </div>
+
+      <div className="hero-stats-bar">
+        {[
+          { num: "1979", label: "Fundação" },
+          { num: "1997", label: "Elevação à Paróquia" },
+          { num: "2008", label: "Igreja Matriz" },
+          { num: "+40", label: "Anos de Fé" },
+        ].map((s) => (
+          <div key={s.label} className="hero-stat">
+            <span className="hero-stat-num">{s.num}</span>
+            <span className="hero-stat-label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Intro() {
+  return (
+    <section className="intro-section">
+      <div className="container">
+        <div className="intro-grid">
+          <div className="intro-left">
+            <span className="section-eyebrow">Nossa missão</span>
+            <h2 className="intro-title">
+              Por que a PSCJ é o lar da sua fé em Bequimão
+            </h2>
+            <p className="intro-desc">
+              Da evangelização à ação social, a paróquia une a comunidade em
+              torno da fé católica com grupos pastorais, celebrações, retiros e
+              projetos que transformam vidas.
+            </p>
+            <div className="intro-social">
+              <a
+                href="http://www.instagram.com/pscjslz"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <i className="ti ti-brand-instagram" aria-hidden="true" />
+              </a>
+              <a
+                href="https://wa.me/5598988440733"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+              >
+                <i className="ti ti-brand-whatsapp" aria-hidden="true" />
+              </a>
+            </div>
+            <div className="intro-metrics">
+              {[
+                { num: "45+", label: "Anos de história" },
+                { num: "10+", label: "Grupos pastorais" },
+                { num: "4", label: "Missas no domingo" },
+              ].map((m) => (
+                <div key={m.label} className="intro-metric">
+                  <span className="metric-num">{m.num}</span>
+                  <span className="metric-label">{m.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="intro-right">
+            {[
+              {
+                icon: "ti-map-pin",
+                title: "Presença Comunitária",
+                desc: "Atuamos em ruas, residências e espaços comunitários de Bequimão levando fé e acolhimento.",
+              },
+              {
+                icon: "ti-calendar-event",
+                title: "Agenda Completa",
+                desc: "Missas, retiros, celebrações missionárias e eventos durante todo o ano para sua família.",
+              },
+              {
+                icon: "ti-headphones",
+                title: "Sempre Acolhendo",
+                desc: "Nossa secretaria e grupos pastorais estão prontos para receber e apoiar toda a comunidade.",
+              },
+            ].map((card) => (
+              <div key={card.title} className="intro-card">
+                <div className="intro-card-icon">
+                  <i className={`ti ${card.icon}`} aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className="intro-card-title">{card.title}</h3>
+                  <p className="intro-card-desc">{card.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Avisos() {
+  return (
+    <section className="avisos-section" id="avisos">
+      <div className="container">
+        <div className="section-header">
+          <div>
+            <span className="section-eyebrow">Comunicados</span>
+            <h2 className="section-title">Avisos da Paróquia</h2>
+          </div>
+          <a href="/?page_id=12855" className="btn-ghost">
+            Ver todos <i className="ti ti-arrow-right" aria-hidden="true" />
+          </a>
+        </div>
+
+        <div className="avisos-grid">
+          {avisos.map((a) => (
+            <article key={a.title} className="aviso-card">
+              <span className="aviso-tag">{a.tag}</span>
+              <h3>{a.title}</h3>
+              <p>{a.desc}</p>
+              <a href={a.href} className="aviso-link">
+                {a.linkLabel}{" "}
+                <i className="ti ti-arrow-right" aria-hidden="true" />
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Horarios() {
+  return (
+    <section className="horarios-section" id="horarios">
+      <div className="container">
+        <div className="horarios-wrapper">
+          <div className="horarios-head">
+            <span className="section-eyebrow light">Liturgia</span>
+            <h2 className="section-title light">
+              Horários de
+              <br />
+              Missas e Secretaria
+            </h2>
+            <a
+              href="https://wa.me/5598988440733"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-whatsapp"
+            >
+              <i className="ti ti-brand-whatsapp" aria-hidden="true" />
+              WhatsApp da Paróquia
+            </a>
+          </div>
+
+          <div className="horarios-cards">
+            <div className="horario-card">
+              <h3>
+                <i className="ti ti-building-church" aria-hidden="true" />{" "}
+                Missas
+              </h3>
+              <ul>
+                {missas.map((m) => (
+                  <li key={m.dia}>
+                    <span className="h-dia">{m.dia}</span>
+                    <span className="h-time">{m.horario}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="horario-card">
+              <h3>
+                <i className="ti ti-clock" aria-hidden="true" /> Secretaria
+              </h3>
+              <ul>
+                {secretaria.map((s) => (
+                  <li key={s.dia}>
+                    <span className="h-dia">{s.dia}</span>
+                    <span className="h-time">{s.horario}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PadreAtual() {
+  return (
+    <section className="padre-section" id="padre">
+      <div className="container">
+        <div className="padre-grid">
+          {/* Foto */}
+          <div className="padre-photo-col">
+            <div className="padre-photo-frame">
+              <div className="padre-accent-block" aria-hidden="true" />
+              <div className="padre-img-wrap">
+                {/*
+                 * padre.png em /public/padre.png
+                 * Use PNG com fundo transparente para melhor resultado
+                 */}
+                <Image
+                  src="/padre.png"
+                  alt="Padre pároco da PSCJ"
+                  fill
+                  sizes="(max-width: 768px) 90vw, 420px"
+                  style={{
+                    objectFit: "contain",
+                    objectPosition: "bottom center",
+                  }}
+                />
+              </div>
+              <div className="padre-badge" aria-hidden="true">
+                <i className="ti ti-cross" />
+              </div>
+            </div>
+          </div>
+
+          {/* Info */}
+          <div className="padre-info-col">
+            <span className="section-eyebrow">Liderança Pastoral</span>
+            <h2 className="padre-name">Pe. [Nome do Pároco]</h2>
+            <p className="padre-role">
+              <i className="ti ti-building-church" aria-hidden="true" />
+              Pároco da PSCJ — Bequimão
+            </p>
+            <p className="padre-bio">
+              Ordenado sacerdote pela Congregação dos Padres do Sagrado Coração
+              de Jesus (SCJ), atua como pároco da comunidade de Bequimão com
+              dedicação à evangelização, à pastoral familiar e ao cuidado dos
+              mais vulneráveis.{" "}
+              <em>Substitua aqui com a biografia real do pároco.</em>
+            </p>
+            <ul className="padre-tags">
+              {padreFormacoes.map((f) => (
+                <li key={f.label}>
+                  <i className={`ti ${f.icon}`} aria-hidden="true" />
+                  {f.label}
+                </li>
+              ))}
+            </ul>
+            <div className="padre-actions">
+              <a
+                href="https://wa.me/5598988440733"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-red"
+              >
+                <i className="ti ti-brand-whatsapp" aria-hidden="true" />{" "}
+                Contato
+              </a>
+              <a
+                href="http://www.instagram.com/pscjslz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline-red"
+              >
+                <i className="ti ti-brand-instagram" aria-hidden="true" />{" "}
+                Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Historia() {
+  return (
+    <section className="historia-section" id="historia">
+      <div className="container">
+        <div className="section-header">
+          <div>
+            <span className="section-eyebrow">Nossa história</span>
+            <h2 className="section-title">A trajetória da PSCJ</h2>
+          </div>
+          <a href="/?page_id=1532" className="btn-ghost">
+            História completa{" "}
+            <i className="ti ti-arrow-right" aria-hidden="true" />
+          </a>
+        </div>
+
+        <div className="historia-grid">
+          <div className="historia-text">
+            <p>
+              A paróquia <strong>nasceu em 1979</strong>, junto com o conjunto
+              Bequimão. Desde a primeira missa celebrada em um terreno simples,
+              a comunidade cresceu, organizou grupos pastorais e construiu sua
+              primeira capela.
+            </p>
+            <p>
+              Em <strong>1997</strong> foi elevada oficialmente a paróquia, e em{" "}
+              <strong>2008</strong> inaugurou a atual Igreja Matriz, símbolo
+              vivo da fé e da dedicação da comunidade.
+            </p>
+          </div>
+
+          <ol className="timeline">
+            {timeline.map((t, i) => (
+              <li key={t.ano} className="timeline-item">
+                <div className="timeline-dot" aria-hidden="true">
+                  {i + 1 < timeline.length && (
+                    <div className="timeline-line" />
+                  )}
+                </div>
+                <div>
+                  <span className="timeline-year">{t.ano}</span>
+                  <p className="timeline-desc">{t.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ComoParticipar() {
+  return (
+    <section className="passos-section">
+      <div className="container">
+        <span className="section-eyebrow center">Faça parte</span>
+        <h2 className="section-title center">
+          Participar é simples. Em 3 passos.
+        </h2>
+        <div className="passos-grid">
+          {passos.map((p) => (
+            <div key={p.num} className="passo-card">
+              <span className="passo-num">{p.num}</span>
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="container">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <span className="footer-brand-icon">
+              <i className="ti ti-cross" aria-hidden="true" />
+            </span>
+            <h3>Paróquia Sagrado Coração de Jesus</h3>
+            <p>
+              Evangelizando com amor e servindo com fé. Uma comunidade viva no
+              coração de Bequimão desde 1979.
+            </p>
+            <div className="footer-social">
+              <a
+                href="http://www.instagram.com/pscjslz"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <i className="ti ti-brand-instagram" aria-hidden="true" />
+              </a>
+              <a
+                href="https://wa.me/5598988440733"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+              >
+                <i className="ti ti-brand-whatsapp" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+
+          <div className="footer-col">
+            <h4>Navegação</h4>
+            <a href="/">Início</a>
+            <a href="/?page_id=1486">Paróquia</a>
+            <a href="/?page_id=13302">Grupos e Pastorais</a>
+            <a href="/?page_id=12855">Avisos</a>
+            <a href="/?page_id=1573">Notícias</a>
+            <a href="/?page_id=12505">Galeria</a>
+            <a href="/?page_id=4190">Eventos e Ações</a>
+          </div>
+
+          <div className="footer-col">
+            <h4>Contato</h4>
+            <a href="https://wa.me/5598988440733">
+              <i className="ti ti-brand-whatsapp" aria-hidden="true" /> (98)
+              98844-0733
+            </a>
+            <a href="#">
+              <i className="ti ti-map-pin" aria-hidden="true" /> Bequimão, São
+              Luís — MA
+            </a>
+            <a href="#">
+              <i className="ti ti-clock" aria-hidden="true" /> Secretaria:
+              Ter–Sex, 8h–17h30
+            </a>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <span>
+            © 1997–2026 Paróquia Sagrado Coração de Jesus — Bequimão
+          </span>
+          <span>Desenvolvido pela PASCOM</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      {/*
+       * Adicione no app/layout.tsx dentro de <head>:
+       *
+       * <link rel="preconnect" href="https://fonts.googleapis.com" />
+       * <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+       * <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+       * <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet" />
+       *
+       * Em produção, mova o conteúdo de `css` abaixo para globals.css
+       */}
+      <style>{css}</style>
+      <Navbar />
+      <main>
+        <Hero />
+        <Intro />
+        <Avisos />
+        <Horarios />
+        <PadreAtual />
+        <Historia />
+        <ComoParticipar />
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
+
+// ─── Styles ───────────────────────────────────────────────────────────────────
+
+const css = `
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css');
+
+:root {
+  --red:   #C8102E;
+  --red-d: #8B0000;
+  --red-l: #f5e6e8;
+  --white: #ffffff;
+  --cream: #faf9f7;
+  --text:  #111111;
+  --muted: #64748b;
+  --border:#e2e8f0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; }
+ul, ol { list-style: none; }
+
+.container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+
+/* NAVBAR */
+.navbar {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  height: 68px;
+  display: flex; align-items: center;
+  padding: 0 2.5rem; gap: 2.5rem;
+  box-shadow: 0 1px 16px rgba(0,0,0,0.07);
+}
+.navbar-brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.brand-cross {
+  width: 36px; height: 36px;
+  background: var(--red); color: var(--white); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+.brand-text strong { font-size: 15px; font-weight: 700; color: var(--red); letter-spacing: 0.04em; }
+.brand-text span { font-size: 10px; color: var(--muted); letter-spacing: 0.01em; }
+.navbar-links { display: flex; gap: 0.2rem; flex: 1; }
+.navbar-links a {
+  font-size: 13px; font-weight: 500; color: var(--text);
+  padding: 6px 14px; border-radius: 6px; transition: background 0.15s, color 0.15s;
+}
+.navbar-links a:hover { background: var(--red-l); color: var(--red); }
+.navbar-actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.nav-icon-link { font-size: 21px; color: var(--muted); transition: color 0.15s; }
+.nav-icon-link:hover { color: var(--red); }
+.btn-nav-cta {
+  background: var(--red); color: var(--white);
+  font-size: 13px; font-weight: 600; padding: 9px 20px; border-radius: 8px;
+  transition: background 0.15s; white-space: nowrap;
+}
+.btn-nav-cta:hover { background: var(--red-d); }
+
+/* HERO */
+.hero { position: relative; min-height: 600px; display: flex; flex-direction: column; overflow: hidden; }
+.hero-fallback-bg {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(135deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px),
+    linear-gradient(160deg, var(--red-d) 0%, var(--red) 55%, #d63050 100%);
+}
+.hero-img { object-fit: cover; }
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(80,0,0,0.72) 0%, rgba(80,0,0,0.3) 65%, transparent 100%);
+}
+.hero-content {
+  position: relative; z-index: 2; flex: 1;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 6rem 4rem 3rem; max-width: 680px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2); padding: 5px 14px; border-radius: 20px;
+  margin-bottom: 1.5rem; width: fit-content;
+}
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 9vw, 7rem); line-height: 0.9;
+  color: var(--white); letter-spacing: 0.02em; margin-bottom: 1.2rem;
+}
+.hero-title-light { color: rgba(255,255,255,0.4); }
+.hero-sub { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.7; max-width: 440px; margin-bottom: 2rem; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-hero-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--white); color: var(--red);
+  font-size: 13px; font-weight: 700; padding: 13px 26px; border-radius: 8px; transition: opacity 0.15s;
+}
+.btn-hero-primary:hover { opacity: 0.9; }
+.btn-hero-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  font-size: 13px; font-weight: 600; padding: 13px 26px; border-radius: 8px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.btn-hero-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+.hero-stats-bar {
+  position: relative; z-index: 2;
+  background: rgba(0,0,0,0.28); backdrop-filter: blur(6px);
+  display: flex; border-top: 1px solid rgba(255,255,255,0.1);
+}
+.hero-stat {
+  flex: 1; padding: 1.2rem 1.5rem; text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num {
+  display: block; font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem; color: var(--white); letter-spacing: 0.02em;
+}
+.hero-stat-label { display: block; font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+/* INTRO */
+.intro-section { padding: 5.5rem 0; background: var(--white); }
+.intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.section-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 0.75rem; display: block;
+}
+.section-eyebrow.light { color: rgba(255,255,255,0.65); }
+.section-eyebrow.center { text-align: center; }
+.intro-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.05;
+  color: var(--text); margin-bottom: 1.2rem; letter-spacing: 0.02em;
+}
+.intro-desc { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+.intro-social { display: flex; gap: 14px; margin-bottom: 2rem; }
+.intro-social a { font-size: 22px; color: var(--muted); transition: color 0.15s; }
+.intro-social a:hover { color: var(--red); }
+.intro-metrics { display: flex; gap: 2.5rem; }
+.metric-num { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--red); letter-spacing: 0.02em; }
+.metric-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.intro-right { display: flex; flex-direction: column; gap: 12px; }
+.intro-card {
+  display: flex; gap: 1.2rem; align-items: flex-start;
+  background: var(--cream); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1.4rem 1.5rem; transition: border-color 0.15s, transform 0.15s;
+}
+.intro-card:hover { border-color: var(--red); transform: translateX(4px); }
+.intro-card-icon {
+  width: 48px; height: 48px; flex-shrink: 0;
+  background: var(--red-l); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; color: var(--red); font-size: 22px;
+}
+.intro-card-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.intro-card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* SECTION HEADER */
+.section-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  color: var(--text); letter-spacing: 0.02em; line-height: 1.05;
+}
+.section-title.light { color: var(--white); }
+.section-title.center { text-align: center; }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--red);
+  border: 1.5px solid var(--red-l); border-radius: 8px;
+  padding: 8px 18px; transition: background 0.15s; white-space: nowrap;
+}
+.btn-ghost:hover { background: var(--red-l); }
+
+/* AVISOS */
+.avisos-section { padding: 5rem 0; background: var(--cream); }
+.avisos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.aviso-card {
+  background: var(--white); border: 1px solid var(--border); border-top: 3px solid var(--red);
+  border-radius: 12px; padding: 1.6rem; transition: transform 0.2s, box-shadow 0.2s;
+}
+.aviso-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(200,16,46,0.1); }
+.aviso-tag {
+  display: inline-block; font-size: 10px; font-weight: 700; color: var(--red);
+  background: var(--red-l); padding: 3px 10px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;
+}
+.aviso-card h3 { font-size: 15px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; }
+.aviso-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.aviso-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--red); transition: gap 0.15s; }
+.aviso-link:hover { gap: 8px; }
+
+/* HORARIOS */
+.horarios-section { padding: 5rem 0; background: var(--red); }
+.horarios-wrapper { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+.horarios-head { display: flex; flex-direction: column; gap: 1.5rem; }
+.btn-whatsapp {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3);
+  color: var(--white); font-size: 13px; font-weight: 600;
+  padding: 11px 20px; border-radius: 8px; transition: background 0.15s; width: fit-content;
+}
+.btn-whatsapp:hover { background: rgba(255,255,255,0.25); }
+.horarios-cards { display: flex; flex-direction: column; gap: 1.2rem; }
+.horario-card {
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 1.5rem;
+}
+.horario-card h3 {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65); margin-bottom: 1rem;
+}
+.horario-card ul { display: flex; flex-direction: column; }
+.horario-card li {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.horario-card li:last-child { border-bottom: none; }
+.h-dia { font-size: 13px; color: rgba(255,255,255,0.7); }
+.h-time { font-size: 14px; font-weight: 600; color: var(--white); }
+
+/* PADRE */
+.padre-section { padding: 6rem 0; background: var(--white); }
+.padre-grid { display: grid; grid-template-columns: 420px 1fr; gap: 5rem; align-items: center; }
+.padre-photo-col { position: relative; }
+.padre-photo-frame { position: relative; width: 100%; padding-top: 110%; }
+.padre-accent-block {
+  position: absolute; bottom: 0; left: 0; width: 80%; height: 80%;
+  background: var(--red-l); border-radius: 16px; z-index: 0;
+}
+.padre-img-wrap { position: absolute; inset: 0; z-index: 1; border-radius: 16px; overflow: hidden; }
+.padre-badge {
+  position: absolute; bottom: 16px; right: -16px; z-index: 2;
+  width: 72px; height: 72px;
+  background: var(--red); color: var(--white); border: 4px solid var(--white);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 26px; box-shadow: 0 8px 24px rgba(200,16,46,0.3);
+}
+.padre-info-col { display: flex; flex-direction: column; gap: 1rem; }
+.padre-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 3rem); color: var(--text); letter-spacing: 0.02em; line-height: 1;
+}
+.padre-role { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--red); letter-spacing: 0.04em; }
+.padre-bio { font-size: 14px; color: var(--muted); line-height: 1.8; }
+.padre-bio em { font-style: italic; color: #aaa; font-size: 13px; }
+.padre-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.padre-tags li {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 500; background: var(--cream);
+  border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 20px;
+}
+.padre-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 0.5rem; }
+.btn-red {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--red); color: var(--white);
+  font-size: 13px; font-weight: 700; padding: 12px 24px; border-radius: 8px; transition: background 0.15s;
+}
+.btn-red:hover { background: var(--red-d); }
+.btn-outline-red {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--red); border: 1.5px solid var(--red);
+  font-size: 13px; font-weight: 600; padding: 12px 24px; border-radius: 8px; transition: background 0.15s;
+}
+.btn-outline-red:hover { background: var(--red-l); }
+
+/* HISTORIA */
+.historia-section { padding: 5rem 0; background: var(--cream); }
+.historia-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 1rem; }
+.historia-text { display: flex; flex-direction: column; gap: 1rem; }
+.historia-text p { font-size: 15px; color: var(--muted); line-height: 1.8; }
+.historia-text strong { color: var(--text); font-weight: 600; }
+.timeline { display: flex; flex-direction: column; }
+.timeline-item { display: flex; gap: 1.2rem; align-items: flex-start; padding-bottom: 1.4rem; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot { display: flex; flex-direction: column; align-items: center; padding-top: 4px; flex-shrink: 0; }
+.timeline-dot::before {
+  content: ''; width: 10px; height: 10px;
+  background: var(--red); border-radius: 50%; border: 2px solid var(--white);
+  box-shadow: 0 0 0 2px var(--red); flex-shrink: 0;
+}
+.timeline-line { width: 2px; flex: 1; background: var(--border); margin-top: 6px; min-height: 24px; }
+.timeline-year { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; color: var(--red); letter-spacing: 0.04em; line-height: 1; margin-bottom: 4px; }
+.timeline-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* PASSOS */
+.passos-section { padding: 5.5rem 0; background: var(--white); }
+.passos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.passo-card {
+  background: var(--cream); border: 1px solid var(--border); border-radius: 14px;
+  padding: 2rem; transition: border-color 0.15s, transform 0.15s;
+}
+.passo-card:hover { border-color: var(--red); transform: translateY(-3px); }
+.passo-num {
+  display: block; font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem; color: var(--red-l); line-height: 1; margin-bottom: 0.5rem;
+  letter-spacing: 0.02em; -webkit-text-stroke: 2px var(--red);
+}
+.passo-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.passo-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* FOOTER */
+.footer { background: var(--red); padding: 4rem 0 0; color: var(--white); }
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1.2fr 1.2fr; gap: 3.5rem;
+  padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.footer-brand-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; background: rgba(255,255,255,0.12); border-radius: 10px;
+  font-size: 20px; margin-bottom: 1rem;
+}
+.footer-brand h3 { font-size: 16px; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.3; }
+.footer-brand p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.75; }
+.footer-social { display: flex; gap: 12px; margin-top: 1.2rem; }
+.footer-social a { font-size: 22px; color: rgba(255,255,255,0.6); transition: color 0.15s; }
+.footer-social a:hover { color: var(--white); }
+.footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 1.2rem; }
+.footer-col a { display: flex; align-items: center; gap: 7px; font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 10px; transition: color 0.15s; }
+.footer-col a:hover { color: var(--white); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: rgba(255,255,255,0.4); padding: 1.5rem 0; flex-wrap: wrap; gap: 8px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .padre-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .intro-grid { gap: 3rem; }
+}
+@media (max-width: 768px) {
+  .navbar { padding: 0 1rem; gap: 1rem; }
+  .navbar-links { display: none; }
+  .hero-content { padding: 4rem 1.5rem 2rem; max-width: 100%; }
+  .hero-title { font-size: clamp(3rem, 14vw, 5rem); }
+  .hero-stats-bar { flex-wrap: wrap; }
+  .hero-stat { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .intro-grid, .padre-grid, .historia-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .padre-photo-frame { padding-top: 85%; max-width: 340px; margin: 0 auto; }
+  .horarios-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+  .avisos-grid, .passos-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .section-header { flex-direction: column; align-items: flex-start; }
+  .container { padding: 0 1.2rem; }
+}
+@media (max-width: 480px) {
+  .hero-ctas { flex-direction: column; }
+  .btn-hero-primary, .btn-hero-outline { justify-content: center; }
+}
+`;
