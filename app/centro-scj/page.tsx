@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/app/components/Navbar"; 
 
 export const metadata: Metadata = {
   title: "Centro de Acolhimento SCJ — Paróquia Sagrado Coração de Jesus",
@@ -83,68 +84,6 @@ const numeros = [
 
 // ─── Components ───────────────────────────────────────────────────────────────
 
-function Navbar() {
-  return (
-    <>
-      <style>{navbarCss}</style>
-      <nav className="navbar">
-        <Link href="/" className="navbar-brand">
-          <Image
-            src="/Logo-PSCJ-vermelho-sem-fundo.png"
-            alt="Logo PSCJ"
-            width={35}
-            height={42}
-            priority
-          />
-          <span className="brand-text">
-            <strong>PSCJ</strong>
-            <span>Sagrado Coração de Jesus</span>
-          </span>
-        </Link>
-
-        <ul className="navbar-links">
-          <li><Link href="/">Início</Link></li>
-          <li className="nav-dropdown-wrap">
-            <button className="nav-dropdown-trigger" aria-haspopup="true">
-              Paróquia
-              <i className="ti ti-chevron-down nav-chevron" aria-hidden="true" />
-            </button>
-            <div className="nav-dropdown" role="menu">
-              <Link href="/paroquia/historia" role="menuitem">
-                <span className="dropdown-icon"><i className="ti ti-book" aria-hidden="true" /></span>
-                <span>
-                  <strong>História</strong>
-                  <small>A trajetória da PSCJ desde 1979</small>
-                </span>
-              </Link>
-              <Link href="/paroquia/grupos" role="menuitem">
-                <span className="dropdown-icon"><i className="ti ti-users-group" aria-hidden="true" /></span>
-                <span>
-                  <strong>Grupos, Movimentos e Pastorais</strong>
-                  <small>Encontre sua comunidade dentro da paróquia</small>
-                </span>
-              </Link>
-            </div>
-          </li>
-          <li><Link href="/centro-scj" aria-current="page">Centro de Acolhimento SCJ</Link></li>
-          <li><Link href="/avisos">Avisos</Link></li>
-          <li><Link href="/noticias">Notícias</Link></li>
-          <li><Link href="/galeria">Galeria</Link></li>
-        </ul>
-
-        <div className="navbar-actions">
-          <a href="http://www.instagram.com/pscjslz" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="nav-icon-link">
-            <i className="ti ti-brand-instagram" aria-hidden="true" />
-          </a>
-          <a href="https://wa.me/5598988440733" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="nav-icon-link">
-            <i className="ti ti-brand-whatsapp" aria-hidden="true" />
-          </a>
-          <Link href="/eventos" className="btn-nav-cta">Eventos</Link>
-        </div>
-      </nav>
-    </>
-  );
-}
 
 function PageHero() {
   return (

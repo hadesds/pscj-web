@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Navbar from "@/app/components/Navbar"; 
 
 export const metadata: Metadata = {
   title: "História — Paróquia Sagrado Coração de Jesus | Bequimão",
@@ -409,58 +410,6 @@ function CtaSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-function Navbar() {
-  return (
-    <nav className="navbar">
-      <a href="/" className="navbar-brand">
-        <span className="brand-cross">
-          <i className="ti ti-cross" aria-hidden="true" />
-        </span>
-        <span className="brand-text">
-          <strong>PSCJ</strong>
-          <span>Sagrado Coração de Jesus</span>
-        </span>
-      </a>
-      <ul className="navbar-links">
-        {[
-          { label: "Início", href: "/" },
-          { label: "Paróquia", href: "/paroquia" },
-          { label: "Avisos", href: "/avisos" },
-          { label: "Notícias", href: "/noticias" },
-          { label: "Galeria", href: "/galeria" },
-        ].map((l) => (
-          <li key={l.href}>
-            <a href={l.href}>{l.label}</a>
-          </li>
-        ))}
-      </ul>
-      <div className="navbar-actions">
-        <a
-          href="http://www.instagram.com/pscjslz"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram"
-          className="nav-icon-link"
-        >
-          <i className="ti ti-brand-instagram" aria-hidden="true" />
-        </a>
-        <a
-          href="https://wa.me/5598988440733"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="WhatsApp"
-          className="nav-icon-link"
-        >
-          <i className="ti ti-brand-whatsapp" aria-hidden="true" />
-        </a>
-        <a href="/eventos" className="btn-nav-cta">
-          Eventos
-        </a>
-      </div>
-    </nav>
   );
 }
 
