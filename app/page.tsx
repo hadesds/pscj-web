@@ -55,9 +55,9 @@ const timeline = [
 ];
 
 const padreFormacoes = [
-  { icon: "ti-school", label: "Teologia — [Instituição]" },
-  { icon: "ti-award", label: "[Pós-graduação ou especialidade]" },
-  { icon: "ti-calendar", label: "Pároco desde [ano]" },
+  { icon: "ti-school", label: "Teologia — FACMA" },
+  { icon: "ti-award", label: "Cursou Filosofia e Teologia" },
+  { icon: "ti-calendar", label: "Pároco desde 1998" },
 ];
 
 const passos = [
@@ -91,9 +91,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <a href="/" className="navbar-brand">
-        <span className="brand-cross">
-          <i className="ti ti-cross" aria-hidden="true" />
-        </span>
+        <Image src="/Logo-PSCJ-vermelho-sem-fundo.png" alt="" width="35" height="30" className="navbar-brand"/>
         <span className="brand-text">
           <strong>PSCJ</strong>
           <span>Sagrado Coração de Jesus</span>
@@ -138,13 +136,7 @@ function Navbar() {
 function Hero() {
   return (
     <section className="hero">
-      {/*
-       * Para usar foto real da igreja:
-       * 1. Coloque hero-bg.jpg em /public/
-       * 2. Descomente o <Image> abaixo e remova .hero-fallback-bg
-       */}
-      {/* <Image src="/hero-bg.jpg" alt="" fill priority className="hero-img" /> */}
-      <div className="hero-fallback-bg" aria-hidden="true" />
+      <Image src="/hero-bg.png" alt="" fill priority className="hero-img" />
       <div className="hero-overlay" aria-hidden="true" />
 
       <div className="hero-content">
@@ -370,10 +362,6 @@ function PadreAtual() {
             <div className="padre-photo-frame">
               <div className="padre-accent-block" aria-hidden="true" />
               <div className="padre-img-wrap">
-                {/*
-                 * padre.png em /public/padre.png
-                 * Use PNG com fundo transparente para melhor resultado
-                 */}
                 <Image
                   src="/padre.png"
                   alt="Padre pároco da PSCJ"
@@ -394,17 +382,13 @@ function PadreAtual() {
           {/* Info */}
           <div className="padre-info-col">
             <span className="section-eyebrow">Liderança Pastoral</span>
-            <h2 className="padre-name">Pe. [Nome do Pároco]</h2>
+            <h2 className="padre-name">Pe. Flávio Colins</h2>
             <p className="padre-role">
               <i className="ti ti-building-church" aria-hidden="true" />
               Pároco da PSCJ — Bequimão
             </p>
             <p className="padre-bio">
-              Ordenado sacerdote pela Congregação dos Padres do Sagrado Coração
-              de Jesus (SCJ), atua como pároco da comunidade de Bequimão com
-              dedicação à evangelização, à pastoral familiar e ao cuidado dos
-              mais vulneráveis.{" "}
-              <em>Substitua aqui com a biografia real do pároco.</em>
+              Reconhecido por sua dedicação à formação dos leigos, pela gestão pastoral e pleo cuidado com as comunidades, sempre atuou de forma humilde, fraterna e comprometida com o crescimento espiritual e humano dos fiéis.
             </p>
             <ul className="padre-tags">
               {padreFormacoes.map((f) => (
